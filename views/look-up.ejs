@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Sauce</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>Item Look-Up</h1>
+    </div> 
+    <form action="/look-up" method="POST">
+        <div>
+            <label for="type">Type</label>
+            <input name="type" type="text" autocomplete="off">
+        </div>
+        <div>
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" id="">
+        </div>
+        <div>
+            <label for="endDate">End Date</label>
+            <input type="date" name="endDate" id="">
+        </div>
+        <div>
+            <label for="ID">ID</label>
+            <input type="text" name="ID" id="">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <div class="section">
+        <% for (item of items) { %> 
+            <form action="/delete" method="POST" class="card">
+                <div>
+                    <div class="card-img">
+                        <img src="<%= item.url %>" alt="">
+                    </div>
+                    <div class="card-body">
+                        <h2><%= item.name %></h2>
+                        <% const date = new Date(item.date);%>
+                        <h3><%= (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()%></h3>
+                        <p>ID: <%= item._id %></p>
+                    </div>
+                </div>
+            </form>
+        <% } %> 
+    </div>
+</body>
+</html>
