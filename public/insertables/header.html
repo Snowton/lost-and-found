@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+
+  <!-- search bar expands when clicked -->
+  <script>
+    $(document).ready(function() {
+        $(".search-icon").click(function() {
+            $(".search-bar").toggleClass("active")
+        })
+    })
+</script>
+
+
+</head>
+<body>
+<header>
+    <!-- <div class = "logo"> -->
+    <img src="/images/knighthead.png" class = "knight"" alt="Image Here">
+    <!-- </div> -->
+    <div class="logo"></div>
+        <a class="logo-text" href="/">
+            <h2>Lost & Found</h2>
+        </a>
+    </div>
+
+    <!-- <input type="checkbox" id="menu-icon">
+    <label for="menu-icon"><i class="fas fa-bars"></i></label> -->
+
+    <div class="collapsible-menu">
+        <div class="show collapse" id="navbarTogglerDemo02">
+            <nav>
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">google form</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+     <script>
+        var prevScrollpos = window.pageYOffset;
+        window.onscroll = scrollShowNav;
+        
+        function scrollShowNav() {
+            var currentScrollPos = window.pageYOffset;
+           if (prevScrollpos > currentScrollPos) {
+              document.getElementsByTagName("header")[0].style.top = "0px";
+           } else {
+              document.getElementsByTagName("header")[0].style.top = "-55px";
+           }
+           prevScrollpos = currentScrollPos;
+        }
+        </script>
+</body>
+</html>
