@@ -1,0 +1,13 @@
+.section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-img {
+    max-height: 25vh;
+    overflow: hidden;
+}
+
+.card-img img {
+    max-width: 300px;
+}

@@ -1,0 +1,20 @@
+<% for (item of items) { %> 
+    <form action="/delete" method="POST" class="card">
+        <div>
+            <div class="card-img">
+                <img src=<%= item.file.data ? "data:image/" + item.file.contentType + ";base64," + item.file.data.toString('base64') : ""%>  alt="">
+            </div>
+            <div class="card-body">
+                <h2><%= item.name %></h2>
+                <% const date = new Date(item.date);%>
+                <h3><%= (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()%></h3>
+                <p>ID: <%= item._id %></p>
+                <% if (type === "admin") { %> 
+                <button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button>
+                <% } else if (type === "student") { %> 
+
+                <% } %> 
+            </div>
+        </div>
+    </form>
+<% } %> 

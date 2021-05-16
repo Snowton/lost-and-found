@@ -22,7 +22,7 @@
 <h4 class="header-title"><span class="title">Lost and Found Items</span></h4>
 <p class = "description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-<form action="/" method="POST">
+<form action="/" method="POST" enctype="multipart/form-data">
     <div>
         <label for="name">Name</label>
         <input name="name" type="text" autocomplete="off" required="true">
@@ -31,33 +31,18 @@
         <label for="date">Date</label>
         <input name="date" type="date" required="true">
     </div>
-    <div>
+    <!-- <div>
         <label for="url">URL</label>
         <input name="url" type="text" spellcheck="false" autocorrect="off" autocomplete="off" required="true">
-    </div>
+    </div> -->
     <div>
         <label for="fileToUpload">File Upload</label>
-        <input type="file" name="fileToUpload">
+        <input type="file" name="image">
     </div>
     <button type="submit">Submit</button>
 </form>
 <div class="section">
-    <% for (item of items) { %> 
-        <form action="/delete" method="POST" class="card">
-            <div>
-                <div class="card-img">
-                    <img src="<%= item.url %>" alt="">
-                </div>
-                <div class="card-body">
-                    <h2><%= item.name %></h2>
-                    <% const date = new Date(item.date);%>
-                    <h3><%= (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()%></h3>
-                    <p>ID: <%= item._id %></p>
-                    <button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button>
-                </div>
-            </div>
-        </form>
-    <% } %> 
+    <%- include("./partials/results.ejs", {type: "admin"}) %>
 </div>
 
 <%- include("./partials/footer.ejs") %>

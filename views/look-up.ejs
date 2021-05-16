@@ -45,21 +45,7 @@
     <button type="submit">Submit</button>
 </form>
 <div class="section">
-    <% for (item of items) { %> 
-        <form action="/delete" method="POST" class="card">
-            <div>
-                <div class="card-img">
-                    <img src="<%= item.url %>" alt="">
-                </div>
-                <div class="card-body">
-                    <h2><%= item.name %></h2>
-                    <% const date = new Date(item.date);%>
-                    <h3><%= (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()%></h3>
-                    <p>ID: <%= item._id %></p>
-                </div>
-            </div>
-        </form>
-    <% } %> 
+    <%- include("./partials/results.ejs", {type: "student"}) %>
 </div>
 </section>
 <%- include("./partials/footer.ejs") %>

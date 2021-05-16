@@ -1,8 +1,8 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const mongoose = require('mongoose');
-const e = require('express');
+const multer = require('multer');
+const fs = require("fs")
 
 mongoose.connect("mongodb://localhost:27017/lostDB", {useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -10,13 +10,18 @@ const itemSchema = new mongoose.Schema({
     name: String,
     date: Number,
     url: String,
-    //file: File
+    file: {
+        contentType: String,
+        data: Buffer,
+    }
 });
+
 const Item = mongoose.model("item", itemSchema);
 
 const app = express();
 
-app.use(bodyParser.urlencoded({extended: true}));
+const upload = multer({ dest: "/tmp/uploads" })
+app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"))
 app.set("view engine", "ejs");
 
@@ -32,18 +37,31 @@ app.route("/")
         }
     });
 })
-.post(function(req, res) {
+.post(upload.single("image"), (req, res) => {
     let {name, date, url} = req.body;
     console.log(name, date);
     date = new Date(date).getTime();
+    const path = "/tmp/uploads/" + req.file.filename;
     
     const anItem = new Item({
         name: name,
         date: date,
-        url: url
+        url: url,
+        file: {
+            contentType: req.file.mimetype,
+            data: fs.readFileSync(path),
+        }
     })
-    anItem.save();
-    res.redirect("/");
+
+    anItem.save((err) => {
+        if(!err) {
+            res.redirect("/");
+        } else console.log(err);
+    })
+
+    fs.unlink(path, err => {
+        if(err) console.log(err);
+    })
 })
 
 app.post("/delete", function({body}, res) {
