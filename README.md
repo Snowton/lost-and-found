@@ -2,7 +2,7 @@
 
 ## Installation Instructions
 
-`sudo yum update -y`
+Run `sudo yum update -y` to warm up. (It's important too! `yum` should be up to date.)
 
 ### git
 
@@ -12,11 +12,13 @@ Just install git. It's not that hard. I did `sudo yum install git -y`.
 
 #### Installing
 
-I followed https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and some stackoverflow pages.
+I followed https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and some stackoverflow pages to get through this mess.
 
-If it's an EC2, do `amazon-linux-extras install nginx1`.
+If it's an EC2, do `amazon-linux-extras install nginx1` to install nginx.
 
 #### Server files
+
+Go to the nginx directory.
 
 ```
 cd /etc/nginx
@@ -31,7 +33,7 @@ sudo touch redirect
 sudo touch laf
 ```
 
-In redirect, paste
+In `redirect`, paste
 
 ```
 server {
@@ -45,7 +47,7 @@ server {
 }
 ```
 
-In laf, paste
+In `laf`, paste
 
 ```
 server {
@@ -73,7 +75,10 @@ sudo ln -s /etc/nginx/sites-available/laf /etc/nginx/sites-enabled/laf
 
 #### Config files
 
+Go back to the nginx directory--we need to update some files there.
+
 ```
+cd ..
 sudo vi proxy_params
 ```
 
@@ -85,7 +90,7 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
-(We've included this in `laf'. It will ensure that our reverse proxy works in the next step.)
+(We've included this in `laf`. It will ensure that our reverse proxy works in the next step.)
 
 ```
 sudo vi nginx.conf
@@ -105,15 +110,13 @@ Then, we're all set.
 
 #### Run server
 
-```
-sudo systemctl start nginx
-```
+All you gotta do is `sudo systemctl start nginx`.
 
 ### mongo
 
-`sudo vi /etc/yum.repos.d/mongodb-org-4.4.repo` 
+Open a config file: `sudo vi /etc/yum.repos.d/mongodb-org-4.4.repo`.
 
-Add this:
+Add this to it:
 ```
 [mongodb-org-4.4]
 name=MongoDB Repository
@@ -163,6 +166,8 @@ ssl_prefer_server_ciphers on;
 
 This is a sketch of what it might look like. I can't configure it right now without an actual domain name.
 
+Then restart the server (`sudo systemctl restart nginx`). You need to do this every time you update configs.
+
 ### node
 
 ```
@@ -179,7 +184,7 @@ cd lost-and-found
 npm i
 sudo vi .env
 ```
-Get the credentials. It should look something like this:
+Get the API credentials. It should look something like this:
 ```
 CLIENT_ID=[yeah i'm not telling you this]
 CLIENT_SECRET=[nope]
@@ -193,9 +198,9 @@ node app.js &
   
 And you're all set!
 
-#@ Other
+## Other
 
-To restart the server (or database), do `sudo systemctl restart nginx` (or `mongodb` in the place of `nginx`).
+Remember: to restart the server (or database), do `sudo systemctl restart nginx` (or `mongodb` in the place of `nginx`).
 
 ## Conclusion
 When are we getting a docker image?
