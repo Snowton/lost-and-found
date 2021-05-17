@@ -1,0 +1,12 @@
+.wrapper {
+    text-align: center;
+}
+
+.form {
+    display: inline-block;
+    margin: auto;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+}

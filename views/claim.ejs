@@ -1,0 +1,21 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="wrapper">
+    <form action="/claim" method="POST" class="form">
+        <div>
+            <label for="name">Full Name (first and last) </label>
+            <input name="name" type="text">
+        </div>
+        <div>
+            <label for="name">Email </label>
+            <input name="email" type="text">
+        </div>
+        <div>
+            <label for="name">Item ID </label>
+            <input name="id" type="text" value="<%= id %>">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<%- include("./partials/footer.ejs") %>

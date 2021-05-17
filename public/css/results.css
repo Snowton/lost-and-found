@@ -1,6 +1,11 @@
 .section {
     display: flex;
     flex-wrap: wrap;
+    /* width: 1400px; */
+    /* margin: auto; */
+    margin: 0 40px;
+    /* text-align: center; */
+    align-items: stretch;
 }
 
 .card-img {
@@ -8,6 +13,6 @@
     overflow: hidden;
 }
 
-.card-img img {
+.card, .card-img img {
     max-width: 300px;
 }
