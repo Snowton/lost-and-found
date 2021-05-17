@@ -1,7 +1,7 @@
 <%- include("./partials/header.ejs") %>
 
 <div class="wrapper">
-    <form action="/" method="POST" enctype="multipart/form-data" class="form">
+    <form action="/admin" method="POST" enctype="multipart/form-data" class="form">
         <div>
             <label for="name">Name</label>
             <input name="name" type="text" autocomplete="off" required="true">
@@ -23,6 +23,12 @@
 
 </div>
 
+<h2>Claimed Items</h2>
+
 <%- include("./partials/results.ejs", {type: "admin"}) %>
+
+<h2>All Items</h2>
+
+<%- include("./partials/results.ejs", {type: "admin", items: allItems}) %>
 
 <%- include("./partials/footer.ejs") %>

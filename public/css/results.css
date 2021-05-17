@@ -16,3 +16,7 @@
 .card, .card-img img {
     max-width: 300px;
 }
+
+.claimed {
+    background-color: #a5e1ad;
+}

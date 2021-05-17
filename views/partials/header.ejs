@@ -58,14 +58,19 @@
             <nav>
                 <ul>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">home</a>
+                        <a class="nav-link" href="<%= routes.lookUp %>">home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/look-up">look up</a>
+                        <a class="nav-link" href="<%= routes.claim %>">claim</a>
+                    </li>
+                    <% if (admin) { %> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= routes.admin %>">admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/claim">claim</a>
+                        <a class="nav-link" href="<%= routes.logout %>">logout</a>
                     </li>
+                    <% } %> 
                 </ul>
             </nav>
         </div>

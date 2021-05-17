@@ -4,7 +4,7 @@
         <div class="card-img">
             <img src=<%= item.file.data ? "data:image/" + item.file.contentType + ";base64," + item.file.data.toString('base64') : ""%>  alt="">
         </div>
-        <div class="card-body">
+        <div class="card-body <%= item.claimed && "claimed" %>">
             <h2><%= item.name %></h2>
             <% const date = new Date(item.date);%>
             <h3><%= (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear()%></h3>
@@ -13,7 +13,7 @@
             <% if(item.claimed) { %> 
                 <p>Claimed by <%= item.claimer.name %>: <%= item.claimer.email %></p>
             <% } %> 
-            <form action="/delete" method="POST" ><button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button></form>
+            <form action="/admin/delete" method="POST" ><button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button></form>
             <% } else if (type === "student") { %> 
             <a href="/claim/<%= item._id %>"><button class="btn btn-primary">Claim</button></a>
             <% } %> 
