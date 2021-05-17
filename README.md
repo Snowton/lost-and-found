@@ -10,9 +10,9 @@ I did `sudo yum install git -y`. Searching it up for your system will give you q
 
 ### nginx
 
-#### Installing
-
 I followed https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and some stackoverflow pages to get through this mess.
+
+#### Installing
 
 If it's an EC2, do `amazon-linux-extras install nginx1` to install nginx.
 
