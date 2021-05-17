@@ -156,11 +156,15 @@ const navAuth = (req, res, next) => {
                 req.options = {...options, admin: true}
                 next();
             } else {
+                req.options = {...options}
                 next();
             }
         })
     }
-    else next()
+    else {
+        req.options = {...options}
+        next()
+    }
 }
 
 // ADMIN-SIDE
