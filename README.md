@@ -1,1 +1,201 @@
-This is a README.
+# WW-P: Lost and Found
+
+## Installation Instructions
+
+`sudo yum update -y`
+
+### git
+
+Just install git. It's not that hard. I did `sudo yum install git -y`.
+
+### nginx
+
+#### Installing
+
+I followed https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and some stackoverflow pages.
+
+If it's an EC2, do `amazon-linux-extras install nginx1`.
+
+#### Server files
+
+```
+cd /etc/nginx
+sudo mkdir sites-available
+sudo mkdir sites-enabled
+```
+Create the config files.
+
+```
+cd sites-available
+sudo touch redirect
+sudo touch laf
+```
+
+In redirect, paste
+
+```
+server {
+    listen [::]:80 ipv6only=on;
+    listen 80;
+    
+    # if you have a domain:
+    server_name <domain> www.<domain>;
+
+    return 301 https://$host$request_uri;
+}
+```
+
+In laf, paste
+
+```
+server {
+    
+    add_header Strict-Transport-Security "max-age=31536000" always;
+    client_max_body_size 256M;
+
+    # if you have a domain:
+    server_name <domain> www.<domain>;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://localhost:3000/;
+    }
+}
+
+```
+
+Then link these two to `sites-enabled`.
+
+```
+sudo ln -s /etc/nginx/sites-available/redirect /etc/nginx/sites-enabled/redirect
+sudo ln -s /etc/nginx/sites-available/laf /etc/nginx/sites-enabled/laf
+```
+
+#### Config files
+
+```
+sudo vi proxy_params
+```
+
+Paste:
+```
+proxy_set_header Host $http_host;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+```
+
+(We've included this in `laf'. It will ensure that our reverse proxy works in the next step.)
+
+```
+sudo vi nginx.conf
+```
+
+You need to paste at least the first line below--it will be under http, but not under server.
+
+```
+include /etc/nginx/sites-enabled/*;
+# (the below are optional)
+access_log /var/log/nginx/access.log;
+error_log /var/log/nginx/error.log;
+```
+
+Then, we're all set.
+
+
+#### Run server
+
+```
+sudo systemctl start nginx
+```
+
+### mongo
+
+`sudo vi /etc/yum.repos.d/mongodb-org-4.4.repo` 
+
+Add this:
+```
+[mongodb-org-4.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/4.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
+```
+
+Then:
+
+```
+sudo yum install -y mongodb-org
+sudo systemctl start mongod
+```
+
+### certbot (and epel)
+
+```
+sudo amazon-linux-extras install epel -y
+sudo yum install certbot -y
+```
+
+Then 
+
+```
+sudo certbot certonly --debug --standalone -d <domain>
+```
+Follow instructions.
+
+At the end, you should get some certificates. Now add them to the server files. `/etc/nginx/sites-available/laf` should have something like the following added to it:
+
+```
+listen       443 ssl http2;
+listen       [::]:443 ssl http2;
+
+ssl_certificate "/etc/pki/nginx/server.crt"; # or pem, or whatever
+ssl_certificate_key "/etc/pki/nginx/private/server.key"; # the actual directories/names might be different for certbot
+
+# certbot might already have the following in something like /etc/letsencrypt/options-ssl-nginx.conf
+ssl_session_cache shared:SSL:1m;
+ssl_ciphers PROFILE=SYSTEM;
+ssl_prefer_server_ciphers on;
+
+# certbot might tell you to add some more parameters
+```
+
+This is a sketch of what it might look like. I can't configure it right now without an actual domain name.
+
+### node
+
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install node
+```
+
+### Clone repo and run!
+
+```
+git clone https://github.com/Snowton/lost-and-found.git
+cd lost-and-found
+npm i
+sudo vi .env
+```
+Get the credentials. It should look something like this:
+```
+CLIENT_ID=[yeah i'm not telling you this]
+CLIENT_SECRET=[nope]
+CALLBACK=http://<domain>
+```
+Note that you must add this callback domain to the Google OAuth Credentials (Authorized Redirect URIs).
+Then you can happily do:
+```
+node app.js &
+```
+  
+And you're all set!
+
+#@ Other
+
+To restart the server (or database), do `sudo systemctl restart nginx` (or `mongodb` in the place of `nginx`).
+
+## Conclusion
+When are we getting a docker image?
