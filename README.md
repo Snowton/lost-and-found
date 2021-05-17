@@ -6,7 +6,7 @@ Run `sudo yum update -y` to warm up. (It's important too! `yum` should be up to 
 
 ### git
 
-Just install git. It's not that hard. I did `sudo yum install git -y`.
+I did `sudo yum install git -y`. Searching it up for your system will give you quick results too.
 
 ### nginx
 
