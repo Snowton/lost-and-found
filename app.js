@@ -275,7 +275,7 @@ app.route(routes.claim)
     })
 })
 
-app.get(navAuth, (req, res) => {
+app.get(routes.claim, navAuth, (req, res) => {
     res.render("claim", {...req.options, id: req.params.id})
 })
 
