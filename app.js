@@ -244,14 +244,29 @@ app.route(routes.lookUp)
     // if no enddate, set enddate to one year from now
     if(!endDate) {const now = new Date(); endDate = new Date(); endDate.setYear(now.getFullYear() + 1)} else endDate = new Date(endDate);
     
+    const search = {
+        claimed: false,
+        name: {
+            $regex: type, 
+            $options: "i"
+        }, 
+        date: { 
+            $gt: startDate.getTime(), 
+            $lt: endDate.getTime() 
+        }
+    }
+
+    if(ID) search["_id"] = ID
+
     // search for items
-    Item.find({"_id": ID, claimed: false, name: { $regex: type, $options: "i" }, date: { $gt: startDate.getTime(), $lt: endDate.getTime() }}, function(err, items) {
+    Item.find(search, function(err, items) {
         if (!err) {
             console.log(items);
             
             res.render("look-up", {...req.options, items: items});
         } else {
             console.log(err);
+            res.redirect(routes.lookUp)
         }
     });
 });
