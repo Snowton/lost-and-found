@@ -200,7 +200,13 @@ And you're all set!
 
 ## Other
 
+### Server updates 
 Remember: to restart the server (or database), do `sudo systemctl restart nginx` (or `mongodb` in the place of `nginx`).
+
+### Site updates
+If the site itself needs to be updated, do `git pull origin master`. It might ask you to give it a merge message.
+
+Then run `ps` to see what the code of the `node` process is, and then kill it with `kill <process number>`. Then you can run `node` in the background again: `node app.js &`.
 
 ## Conclusion
 When are we getting a docker image?
