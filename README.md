@@ -178,6 +178,7 @@ nvm install node
 
 ### Clone repo and run!
 
+Choose a folder to hold the repo in. Then: 
 ```
 git clone https://github.com/Snowton/lost-and-found.git
 cd lost-and-found
@@ -204,7 +205,7 @@ And you're all set!
 Remember: to restart the server (or database), do `sudo systemctl restart nginx` (or `mongodb` in the place of `nginx`).
 
 ### Site updates
-If the site itself needs to be updated, do `git pull origin master`. It might ask you to give it a merge message.
+If the site itself needs to be updated, do `git pull origin master` in your repo. It might ask you to give it a merge message.
 
 Then run `ps` to see what the code of the `node` process is, and then kill it with `kill <process number>`. Then you can run `node` in the background again: `node app.js &`.
 
