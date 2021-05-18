@@ -7,7 +7,7 @@ Steps:
  - [git](#git)
  - [nginx](#nginx)
  - [mongo](#mongo)
- - [certbot](#certbot-(and-epel))
+ - [certbot](#certbot-and-epel)
  - [node](#node)
 
 Run `sudo yum update -y` to warm up. (It's important too! `yum` should be up to date.)
