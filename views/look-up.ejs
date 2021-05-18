@@ -1,6 +1,6 @@
 <%- include("./partials/header.ejs") %>
 <div class="wrapper">
-    <form action="/look-up" method="POST" class="form">
+    <form action="<%= routes.lookUp %>" method="POST" class="form">
         <div>
             <label for="type">Type</label>
             <input name="type" type="text" autocomplete="off">

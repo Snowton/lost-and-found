@@ -13,9 +13,9 @@
             <% if(item.claimed) { %> 
                 <p>Claimed by <%= item.claimer.name %>: <%= item.claimer.email %></p>
             <% } %> 
-            <form action="/admin/delete" method="POST" ><button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button></form>
+            <form action="<%= routes.admin %>/delete" method="POST" ><button type="submit" class="btn btn-primary" name="id" value="<%= item._id %>">Delete</button></form>
             <% } else if (type === "student") { %> 
-            <a href="/claim/<%= item._id %>"><button class="btn btn-primary">Claim</button></a>
+            <a href="<%= routes.claim %>/<%= item._id %>"><button class="btn btn-primary">Claim</button></a>
             <% } %> 
         </div>
     </div>
