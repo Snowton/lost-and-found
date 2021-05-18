@@ -10,7 +10,7 @@ I did `sudo yum install git -y`. Searching it up for your system will give you q
 
 ### nginx
 
-I followed https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and some stackoverflow pages to get through this mess.
+I followed articles like https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and lots of stackoverflow pages to get through this mess.
 
 #### Installing
 
