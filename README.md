@@ -2,6 +2,14 @@
 
 ## Installation Instructions
 
+Steps:
+
+ - [git](#git)
+ - [nginx](#nginx)
+ - [mongo](#mongo)
+ - [certbot](#certbot-(and-epel))
+ - [node](#node)
+
 Run `sudo yum update -y` to warm up. (It's important too! `yum` should be up to date.)
 
 ### git
@@ -10,7 +18,7 @@ I did `sudo yum install git -y`. Searching it up for your system will give you q
 
 ### nginx
 
-I followed articles like https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940 and lots of stackoverflow pages to get through this mess.
+I followed articles like [this](https://jgefroh.medium.com/a-guide-to-using-nginx-for-static-websites-d96a9d034940) and lots of stackoverflow pages to get through this mess.
 
 #### Installing
 
