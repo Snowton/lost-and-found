@@ -237,8 +237,8 @@ app.route(routes.lookUp)
         }
     });
 })
-.post(navAuth, ({body}, res) => {
-    let {type, startDate, endDate, ID} = body; // 5ef66b2f7fbba908b779dc9a
+.post(navAuth, (req, res) => {
+    let {type, startDate, endDate, ID} = req.body; // 5ef66b2f7fbba908b779dc9a
     // if no startdate, set startdate to 0
     if(!startDate) startDate = new Date(0); else startDate = new Date(startDate);
     // if no enddate, set enddate to one year from now
