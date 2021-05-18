@@ -266,7 +266,7 @@ app.route(routes.lookUp)
             res.render("look-up", {...req.options, items: items});
         } else {
             console.log(err);
-            res.redirect(routes.lookUp)
+            res.render("look-up", {...req.options, items: []});
         }
     });
 });
