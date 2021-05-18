@@ -63,7 +63,6 @@ server {
         proxy_pass http://localhost:3000/;
     }
 }
-
 ```
 
 Then link these two to `sites-enabled`.
